@@ -1,0 +1,229 @@
+{% extends "base.html" %} {% block body %}
+<main>
+  <div class="main-wrapper">
+    <div class="container px-4">
+
+      <div class="row">
+        <div class="col stat-title h2">Statistics</div>
+      </div>
+
+      <div class="row gx-5">
+        <div class="col col-lg-4 col-md-6 col-sm-12">
+          <div class="p-3 border bg-light stat-card">
+            <h4>No. of Users:</h4>
+            <hr />
+            <br />
+            <h1 id="user_count"></h1>
+          </div>
+        </div>
+        <div class="col col-lg-4 col-md-6 col-sm-12">
+          <div class="p-3 border bg-light stat-card">
+            <h4>No. of Posts:</h4>
+            <hr />
+            <br />
+            <h1 id="post_count"></h1>
+          </div>
+        </div>
+        <div class="col col-lg-4 col-md-6 col-sm-12">
+          <div class="p-3 border bg-light stat-card">
+            <h4>No. of Comments:</h4>
+            <hr />
+            <br />
+            <h1 id="comment_count"></h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="row gx-5 my-3">
+
+        
+
+        <div class="col col-lg-6 col-md-12 col-sm-12">
+          <div id="post-plot"></div>
+        </div>
+
+        <div class="col col-lg-6 col-md-12 col-sm-12">
+          <div id="other-plot"></div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %} {%block script%}
+<script>
+
+      gender_data = []
+      window.onload = data_func;
+
+      function data_func(){
+        
+        const url = "/stat_data/"
+        fetch(url)
+          .then(
+            (res) => { return res.json() }
+        )
+          .then(
+            (text) => {
+              console.log("Get Response")
+              console.log(text.users)
+              
+              document.getElementById("user_count").innerHTML = text.user_count
+              document.getElementById("post_count").innerHTML = text.post_count
+              document.getElementById("comment_count").innerHTML = text.comment_count
+
+
+              gender_data = text.gender
+              postgenderdata = text.post_gender
+              // console.log(typeof(gender_data))
+              // console.log(typeof([1,2]))
+              
+              // =================================
+              // var userplot = [
+              //                 {
+              //                   x: ['Male', 'Female'],
+              //                   // y: [20, 14],
+              //                   y: gender_data,
+              //                   type: 'bar'
+              //                 }
+              //             ];
+
+              // Plotly.newPlot('gender-plot', userplot);
+
+              // =================================
+
+                
+              // =================================
+              // var postgenderplot = [
+              //                 {
+              //                   title: 'Number of Graphs Made this Week',
+              //                   x: ['Male', 'Female'],
+              //                   // y: [20, 14],
+              //                   y: postgenderdata,
+              //                   type: 'bar'
+              //                 }
+              //             ];
+
+              // Plotly.newPlot('post-plot', postgenderplot);
+
+              // =================================
+              var xValue = ['Male', 'Female'];
+
+              var yValue = gender_data;
+              var yValue2 = postgenderdata;
+
+              var user_gender = {
+                x: xValue,
+                y: yValue,
+                type: 'bar',
+                text: yValue.map(String),
+                textposition: 'auto',
+                hoverinfo: 'none',
+                opacity: 0.5,
+                name: 'User Count',
+                marker: {
+                  color: 'rgb(158,202,225)',
+                  line: {
+                    color: 'rgb(8,48,107)',
+                    width: 1.5
+                  }
+                }
+              };
+
+              var post_gender = {
+                x: xValue,
+                y: yValue2,
+                type: 'bar',
+                text: yValue2.map(String),
+                textposition: 'auto',
+                hoverinfo: 'none',
+                name:"Post Count",
+                marker: {
+                  color: 'rgba(58,200,225,.5)',
+                  line: {
+                    color: 'rgb(8,48,107)',
+                    width: 1.5
+                  }
+                }
+              };
+
+              var data = [user_gender,post_gender];
+
+              var layout = {
+                title: 'User Activity based on gender'
+              };
+
+              Plotly.newPlot('post-plot', data, layout);
+
+
+
+
+
+// ==========================
+
+// =================================
+var xValue = ['Male', 'Female'];
+
+var yValue = gender_data;
+var yValue2 = postgenderdata;
+
+var user_gender = {
+  x: xValue,
+  y: yValue,
+  type: 'bar',
+  text: yValue.map(String),
+  textposition: 'auto',
+  hoverinfo: 'none',
+  opacity: 0.5,
+  name: 'User Count',
+  marker: {
+    color: 'rgb(158,202,225)',
+    line: {
+      color: 'rgb(8,48,107)',
+      width: 1.5
+    }
+  }
+};
+
+var post_gender = {
+  x: xValue,
+  y: yValue2,
+  type: 'bar',
+  text: yValue2.map(String),
+  textposition: 'auto',
+  hoverinfo: 'none',
+  name:"Post Count",
+  marker: {
+    color: 'rgba(58,200,225,.5)',
+    line: {
+      color: 'rgb(8,48,107)',
+      width: 1.5
+    }
+  }
+};
+
+var data = [user_gender,post_gender];
+
+var layout = {
+  title: 'User Activity based on gender'
+};
+
+Plotly.newPlot('other-plot', data, layout);
+
+
+
+
+
+
+            }
+
+          )
+        
+
+      }
+
+
+</script>
+
+{%endblock%}

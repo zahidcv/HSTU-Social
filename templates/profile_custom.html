@@ -1,0 +1,633 @@
+{% extends "base.html" %}
+
+    {% block body %} 
+    <main>
+        
+        <div class="main-wrapper ">
+            
+            <div class="container">
+
+                
+
+                <!--!    ROW ---- 1   -->
+                <div class="row my-3">
+
+
+
+
+                    <!--!    COLUMN  ---- 1   -->
+                    <div class="col-lg-3 order-lg-1">
+                        <!-- <aside class="widget-area"> -->
+
+
+                            <!-- ============================================ -->
+                            <!-- widget single item start -->
+                            <!--! Profile card in Home Page -->
+
+                            <div class="card card-profile order-1 widget-item p-0">
+                                <div class="profile-banner pt-4">
+                                    <!-- <figure class="profile-banner-small"> -->
+                                        <!-- <a href="profile">
+                                            <img src="{{ url_for('static' , filename = 'images/' + user.pro_pic) }}" alt="">
+                                            
+                                        </a> -->
+                                        <a href="profile" class="profile-thumb-2 ">
+                                            <img src="{{ url_for('static' , filename = 'images/' + user.pro_pic) }}" alt="">
+                                        </a>
+                                    <!-- </figure> -->
+                                    <div class="profile-desc text-center">
+                                        <h6 class="author"><a href="profile">{{user.name}}</a></h6>
+                                        <p>{{user.bio}}</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--! Profile card in Home Page Ends-->
+
+                            <!-- widget single item start -->
+                            <!-- ============================================ -->
+                            <div class="card card-profile order-1 widget-item p-3 profile-edit">
+                                <ul>
+                                    <li> 
+                                        <button class="btn btn-info" onclick="popup_follower()">  
+                                            Followers 
+                                        </button>
+
+                                        <div class = 'popup' id = 'follower' hidden>
+                                            <!-- <h5>Followers of {{user.name}}</h5> -->
+                                            <hr>
+                                            
+                                            {%for follower in followers%}
+                                            <div class="follower-name h6">
+                                               <a href= "/other_profile/{{follower.sid}}">{{follower.name}}</a> 
+                                            </div>
+                                               
+                                            {%endfor%}
+
+                                        </div>
+                                    </li> 
+                                    <hr>
+                                    <li> 
+                                        <button class="btn btn-info" onclick="popup_following()">  
+                                            Following 
+                                        </button>
+
+                                        <div class = 'popup' id = 'following' hidden>
+                                            <!-- <h5>Followers of {{user.name}}</h5> -->
+                                            <hr>
+                                            
+                                            {%for following in followings %}
+                                            <div class="follower-name h6">
+                                               <a href= "/other_profile/{{following.sid}}">{{following.name}}</a> 
+                                            </div>
+                                               
+                                            {%endfor%}
+
+                                        </div>
+                                    </li> 
+
+                                    <hr>
+
+                                    <li> 
+                                        <button class="btn btn-info" onclick="popup_about()">  
+                                            About 
+                                        </button>
+
+                                        <div class = 'popup h6 about' id = 'about' hidden>
+                                            <hr>
+                                            
+                                            SID: {{user.sid}} <br>
+                                            Name: {{user.name}} <br>
+                                            Email: {{user.email}} <br>
+                                            Department: {{user.department}} <br>
+                                            Faculty: {{user.faculty}} <br>
+                                            Blood Grooup: {{user.blood_group}} <br>
+
+                                        
+                                            
+                                               
+                                
+
+                                        </div>
+                                    </li> 
+
+                                    <hr>
+                                    <li><a href = "/edit_profile/{{user.sid}}" class="profile-links"><button class="btn btn-info">Edit Profile</button>  </a></li>
+                                </ul>
+                            </div>
+                            
+
+
+
+                            
+
+
+
+                        <!-- </aside> -->
+                    </div>
+                    <!--!    COLUMN  ---- 1   ENDS -->
+
+
+
+
+                    <!--!    COLUMN  ---- 2   -->
+                    <div class="col-lg-6 order-2 order-lg-2">
+
+
+                        <!--! POST BOX AREA -->
+                        <div class="card card-small">
+                            <!--! Post Box -->
+                            <!-- <div class="share-box-inner"> -->
+
+                                
+
+                                
+                                
+                                
+                                <form action="/create_post" method="POST" class = "share-text-box">
+                                    <textarea class="form-control" name="content" id="content" placeholder = "share Something" class = "share-text-field" required></textarea>
+                                    <div class="row my-1 ">
+
+                                        <div class="mx-3">
+                                            <input type="file" name="photo1" id="img1" style="display:none;"/>
+                                            <label for="img1" class="photo">Photo 1</label>
+                                        
+                                        <!-- <div class="col" style="display: inline-block;background-color: green"> -->
+                                            <input type="file" name="photo2" id="img2" style="display:none;"/>
+                                            <label for="img2"  class="photo">Photo 2</label>
+                                        </div>
+
+                                             
+                                        
+                                        <div class = "col" style="display: flex; justify-content:flex-end">
+                                            <!-- <label for="upload-photo">Browse...</label> -->
+                                            <!-- <input type="file" name="photo1" accept="image/*">
+                                            <input type="file" name="photo2" accept="image/*"> -->
+
+                                            
+                                            <!-- <input type="file" class="upload-photo" name="photo2" accept="image/*"> -->
+
+                                            <input  type="submit" class = "post-btn" value="Share">
+                                        </div>
+                                    
+                                    </div>
+                                    
+
+                                </form>
+
+                            <!-- </div> -->
+                            <!-- ! Post Box ends -->
+                        </div>
+
+                        <!--! POST BOX AREA -->
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                <ul class=flashes>
+                                {% for category, message in messages %}
+                                
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ message }}
+                                    </div>
+
+                                {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endwith %}
+                        <!-- ============================================ -->
+
+                        <!--! POST 1 -->
+                        {% for post in posts %}
+                        <div class="card order-3" id = {{post.id}}>
+
+                            <!--! post title start -->
+                            <div class="post-title d-flex align-items-center">
+                                <!-- profile picture end -->
+                                <div class="profile-thumb">
+                                    <a href="#">
+                                        <figure class="profile-thumb-middle">
+                                            <img src="{{ url_for('static' , filename = 'images/' + user.pro_pic) }}" alt="profile picture">
+                                        </figure>
+                                    </a>
+                                </div>
+                                <!-- profile picture end -->
+
+                                <div class="posted-author">
+                                    <h6 class="author">
+                                        <a href="profile">{{user.name}}</a>
+                                    </h6>
+                                    <span class="post-time">{{post.time}}</span>
+                                </div>
+
+                                <!--! 3 Bar Option -->
+                                <div class="post-settings-bar">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <div class="post-settings arrow-shape">
+                                        <ul>
+
+                                            <li><button>edit post</button></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!--! 3 Bar Option ENDS-->
+
+
+                            </div>
+                            <!--! post title Ends -->
+
+
+                            <!--! post content Start -->
+                            <div class="post-content">
+                                <p class="post-desc">
+                                    {{post.content}}
+                                </p>
+                                <!-- <div class="plyr__video-embed plyr-youtube">
+                                    <iframe src="https://www.youtube.com/embed/WeA7edXsU40" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div> -->
+                                <!-- <div class="post-thumb-gallery">
+                                    <figure class="post-thumb img-popup">
+                                        <a href="media/images/post/post-large-1.jpg">
+                                            <img src="media/images/post/post-1.jpg" alt="post image">
+                                        </a>
+                                    </figure>
+                                </div> -->
+
+
+                                <!-- <div class="post-thumb-gallery img-gallery">
+                                    <div class="row no-gutters">
+                                        <div class="col-6">
+                                            <figure class="post-thumb">
+                                                <a class="gallery-selector" href="media/images/post/post-large-6.jpg">
+                                                    <img src="media/images/post/post-6.jpg" alt="post image">
+                                                </a>
+                                            </figure>
+                                        </div>
+                                        <div class="col-6">
+                                            <figure class="post-thumb">
+                                                <a class="gallery-selector" href="media/images/post/post-large-7.jpg">
+                                                    <img src="media/images/post/post-7.jpg" alt="post image">
+                                                </a>
+                                            </figure>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+
+                                <!-- <div class="post-thumb-gallery img-gallery">
+                                    <div class="row no-gutters">
+                                        <div class="col-8">
+                                            <figure class="post-thumb">
+                                                <a class="gallery-selector" href="media/images/post/post-large-2.jpg">
+                                                    <img src="media/images/post/post-2.jpg" alt="post image">
+                                                </a>
+                                            </figure>
+                                        </div>
+                                        <div class="col-4">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <figure class="post-thumb">
+                                                        <a class="gallery-selector" href="media/images/post/post-large-3.jpg">
+                                                            <img src="media/images/post/post-3.jpg" alt="post image">
+                                                        </a>
+                                                    </figure>
+                                                </div>
+                                                <div class="col-12">
+                                                    <figure class="post-thumb">
+                                                        <a class="gallery-selector" href="media/images/post/post-large-4.jpg">
+                                                            <img src="media/images/post/post-4.jpg" alt="post image">
+                                                        </a>
+                                                    </figure>
+                                                </div>
+                                                <div class="col-12">
+                                                    <figure class="post-thumb">
+                                                        <a class="gallery-selector" href="media/images/post/post-large-5.jpg">
+                                                            <img src="media/images/post/post-5.jpg" alt="post image">
+                                                        </a>
+                                                    </figure>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+                                <div class="post-meta">
+                                    <!-- <button class="post-meta-like">
+                                        <i class="bi bi-heart-beat"></i>
+                                        <span>{{like}}</span>
+                                        <strong>201</strong>
+                                    </button> -->
+                                    
+                                    <ul class="comment-share-meta">
+                                        <li>
+                                            <button class="post-like">
+                                                <i class="fa-regular fa-thumbs-up icon-4x"></i>
+                                                <!-- <i class="fa-solid fa-thumbs-up"></i> -->
+                                                <span>{{post.like}}</span>
+                                            </button>
+                                        </li>
+
+                                        <li>
+                                            <button class="post-dislike">
+                                                <i class="fa-regular fa-thumbs-down icon-3x"></i>
+                                                <span>{{post.dislike}}</span>
+                                            </button>
+                                        </li>
+                                    </ul>
+                                
+                                </div>
+                            </div>
+                            <!--! post content ENDS -->
+
+                        </div>
+
+                        {% endfor %}
+                        <!--! POST 1 ENDS-->
+                        <!-- ============================================ -->
+
+
+                        <!-- ============================================ -->
+                        <!--! POST 2 -->
+                    
+                        <!--! POST 2 ENDS -->
+                        <!-- ============================================ -->
+
+
+
+                        
+
+                        
+
+                    </div>
+                    <!--!    COLUMN  ---- 2   ENDS-->
+
+
+
+
+                    <!--!    COLUMN  ---- 3   -->
+                    <div class="col-lg-3 order-3">
+                        <aside class="widget-area">
+
+                            <!-- ============================================ -->
+
+                            <!-- widget single item start -->
+                            <!--! Blood Donations-->
+                            <div class="card widget-item order-4">
+                                <h4 class="widget-title">Blood Donations</h4>
+                                <div class="widget-body">
+
+                                    <ul class="like-page-list-wrapper">
+
+                                        <!--!create new donation request-->
+                                        <li class="unorder-list">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="\create_blood_donation">
+                                                    <figure class="profile-thumb-small">
+                                                        <i class="fa-solid fa-plus fa-2xl"></i>
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="\create_blood_donation">Create New</a></h3>
+                                                <!-- <p class="list-subtitle"><a href="#">Demo</a></p> -->
+                                            </div>
+                                            <button class="like-button active">
+                                                <img class="heart" src="media/images/icons/heart.png" alt="">
+                                                <img class="heart-color" src="media/images/icons/heart-color.png" alt="">
+                                            </button>
+                                        </li>
+
+                                        <!--!ends new donation request-->
+                                        {% for blood_donation in blood_donations%}
+
+                                        <li class="unorder-list">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="#">
+                                                    <figure class="profile-thumb-small">
+                                                        <img src="media/images/profile/profile-small-33.jpg" alt="profile picture">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="#">{{blood_donation.group}}</a></h3>
+                                                <p class="list-subtitle"><a href="#">{{blood_donation.place}}</a></p>
+                                                <p class="list-subtitle"><a href="#">{{blood_donation.donation_time}}</a></p>
+                                            </div>
+                                           
+                                        </li>
+                                        {%endfor%}
+                                        
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <!--! Blood Donations Ends-->
+                            <!-- widget single item end -->
+                            <!-- ============================================ -->
+
+                            <!-- widget single item start -->
+                            <div class="card widget-item">
+                                <h4 class="widget-title">Recent Notifications</h4>
+                                <div class="widget-body">
+                                    <ul class="like-page-list-wrapper">
+
+                                        <!-- for loop -->
+                                        <li class="unorder-list">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="#">
+                                                    <figure class="profile-thumb-small">
+                                                        <img src="media/images/profile/profile-small-9.jpg" alt="profile picture">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="#">Recent Notif title</a></h3>
+                                                <p class="list-subtitle">Recent Notif subtitile</p>
+                                            </div>
+                                        </li>
+                                        <!-- for loop ends-->
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- widget single item end -->
+
+                          
+
+                            <!-- widget single item start -->
+                            <div class="card widget-item">
+                                <h4 class="widget-title">Lost and found</h4>
+                                <div class="widget-body">
+                                    <ul class="like-page-list-wrapper">
+                                        <!--!create new donation request-->
+                                        <li class="unorder-list">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="\create_lost_n_found">
+                                                    <figure class="profile-thumb-small">
+                                                        <i class="fa-sharp fa-solid fa-plus"></i>
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="\create_lost_n_found">Create New</a></h3>
+                                                <!-- <p class="list-subtitle"><a href="#">Demo</a></p> -->
+                                            </div>
+                                           
+                                        </li>
+                                        <!--!ends new donation request-->
+
+                                        {% for lnf in lost_n_founds %}
+
+                                        <li class="unorder-list">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="#">
+                                                    <figure class="profile-thumb-small">
+                                                        <img src="media/images/profile/profile-small-33.jpg" alt="profile picture">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="#">{{lnf.item}}</a></h3>
+                                                <p class="list-subtitle"><a href="#">{{lnf.place}}</a></p>
+                                            </div>
+                                            <!-- <button class="like-button">
+                                                <img class="heart" src="media/images/icons/heart.png" alt="">
+                                                <img class="heart-color" src="media/images/icons/heart-color.png" alt="">
+                                            </button> -->
+                                        </li>
+                                        {%endfor%}
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- widget single item end -->
+                            <div class="card widget-item">
+                                <h4 class="widget-title">Events</h4>
+                                <div class="widget-body">
+                                    <ul class="like-page-list-wrapper">
+
+                                        <li class="unorder-list">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="\create_event">
+                                                    <figure class="profile-thumb-small">
+                                                        <i class="fa-sharp fa-solid fa-plus"></i>
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="\create_blood_donation">Create New</a></h3>
+                                                <!-- <p class="list-subtitle"><a href="#">Demo</a></p> -->
+                                            </div>
+                                           
+                                        </li>
+
+                                        {% for event in events %}
+                                        <li class="unorder-list">
+                                            <!-- profile picture end -->
+                                            <div class="profile-thumb">
+                                                <a href="#">
+                                                    <figure class="profile-thumb-small">
+                                                        <img src="media/images/profile/profile-small-33.jpg" alt="profile picture">
+                                                    </figure>
+                                                </a>
+                                            </div>
+                                            <!-- profile picture end -->
+
+                                            <div class="unorder-list-info">
+                                                <h3 class="list-title"><a href="#">{{event.title}}</a></h3>
+                                                <p class="list-subtitle"><a href="#">{{event.place}}</a></p>
+                                            </div>
+                                            <!-- <button class="like-button">
+                                                <img class="heart" src="media/images/icons/heart.png" alt="">
+                                                <img class="heart-color" src="media/images/icons/heart-color.png" alt="">
+                                            </button> -->
+                                        </li>
+                                        {%endfor%}
+                                        
+                                    </ul>
+                                </div>
+                            </div>
+
+
+                        </aside>
+                    </div>
+                    <!--!    COLUMN  ---- 3   -->
+
+
+
+
+                </div>
+                <!--!    ROW ---- 1   ENDS-->
+            </div>
+        </div>
+
+    </main>
+    {%block script%}
+    <script>
+        function popup_follower(){
+            // alert("clicked")
+            f = document.getElementById("follower")
+            if(f.hidden == true){
+                f.hidden = false
+            }
+            else{
+
+                f.hidden = true
+                
+            }
+            
+        }
+
+
+        function popup_following(){
+            // alert("clicked")
+            f = document.getElementById("following")
+            if(f.hidden == true){
+                f.hidden = false
+            }
+            else{
+
+                f.hidden = true
+                
+            }
+            
+        }
+
+
+        function popup_about(){
+            // alert("clicked")
+            f = document.getElementById("about")
+            if(f.hidden == true){
+                f.hidden = false
+            }
+            else{
+
+                f.hidden = true
+                
+            }
+            
+        }
+    </script>
+
+    {%endblock%}
+    {%endblock%}    
+    
