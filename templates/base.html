@@ -36,9 +36,9 @@
     <header>
         <nav class="navbar navbar-expand navbar-light sticky-top bg-light">
             <a href="/" class="logo">
-                <img src="{{url_for('static', filename = 'hstu_logo_.png')}}" alt="">
+                <img src="{{url_for('static', filename = 'hstu_logo.png')}}" alt="">
             </a>
-            <a class="navbar-brand" href="#">HSTU Social</a>
+            <a class="navbar-brand" href="/">HSTU Social</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
@@ -72,7 +72,10 @@
             </ul>
             <form class="form-inline my-2 my-lg-0 ">
                 <input class="form-control mr-sm-2" type="search" placeholder="Search by ID or Email" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <button class="btn btn-outline-success my-2 my-sm-0 mx-3" type="submit">Search</button>
+
+                <a href="/logout"><button class="btn btn-outline-danger my-2 my-sm-0" type="button">Logout</button></a>
+                
             </form>
             </div>
         </nav>

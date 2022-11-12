@@ -318,24 +318,40 @@
                                         <span>{{like}}</span>
                                         <strong>201</strong>
                                     </button> -->
+                                    <button class="btn btn-outline-secondary" onClick="popup_comments(this.id)" id="{{post.id}}">Comments</button>
                                     
                                     <ul class="comment-share-meta">
                                         <li>
-                                            <button class="post-like">
-                                                <i class="fa-regular fa-thumbs-up icon-4x"></i>
+
+                                            <button class="post-like" onClick="likefunc(this.id)" id="{{post.id}}"> 
+                                                <i class="fa-solid fa-thumbs-up"></i>
                                                 <!-- <i class="fa-solid fa-thumbs-up"></i> -->
-                                                <span>{{post.like}}</span>
+                                                <!-- <button class="btn btn-outline-info" id = "{{post.id}}like_number">{{post.like}}</button> -->
+                                                <span id = "{{post.id}}like_number">{{post.like}}</span>
                                             </button>
                                         </li>
 
                                         <li>
-                                            <button class="post-dislike">
-                                                <i class="fa-regular fa-thumbs-down icon-3x"></i>
-                                                <span>{{post.dislike}}</span>
+                                            <button class="post-dislike" onClick="dislikefunc(this.id)" id="{{post.id}}">
+                                                <i class="fa-solid fa-thumbs-down"></i>
+                                                <span id = "{{post.id}}dislike_number">{{post.dislike}}</span>
                                             </button>
                                         </li>
                                     </ul>
                                 
+                                </div>
+
+                                <div class = '' id = '{{post.id}}-comments' hidden>
+                                    <hr>
+                                    <div class="comment-card">
+                                        <h6 class = 'comment-name'>Name</h6>
+
+                                        <p class="mx-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius nulla dolore eligendi unde ipsa obcaecati veritatis dolor. Blanditiis, odit. Fuga consectetur earum sequi nulla neque odit inventore, dolores laborum deserunt?</p>
+                                    </div>
+                                
+                                    
+                                       
+
                                 </div>
                             </div>
                             <!--! post content ENDS -->
@@ -429,35 +445,7 @@
                             <!-- widget single item end -->
                             <!-- ============================================ -->
 
-                            <!-- widget single item start -->
-                            <div class="card widget-item">
-                                <h4 class="widget-title">Recent Notifications</h4>
-                                <div class="widget-body">
-                                    <ul class="like-page-list-wrapper">
-
-                                        <!-- for loop -->
-                                        <li class="unorder-list">
-                                            <!-- profile picture end -->
-                                            <div class="profile-thumb">
-                                                <a href="#">
-                                                    <figure class="profile-thumb-small">
-                                                        <img src="media/images/profile/profile-small-9.jpg" alt="profile picture">
-                                                    </figure>
-                                                </a>
-                                            </div>
-                                            <!-- profile picture end -->
-
-                                            <div class="unorder-list-info">
-                                                <h3 class="list-title"><a href="#">Recent Notif title</a></h3>
-                                                <p class="list-subtitle">Recent Notif subtitile</p>
-                                            </div>
-                                        </li>
-                                        <!-- for loop ends-->
-                                        
-                                    </ul>
-                                </div>
-                            </div>
-                            <!-- widget single item end -->
+                            
 
                           
 

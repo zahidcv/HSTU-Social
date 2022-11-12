@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{%block head%}
+<link rel="stylesheet" href="{{ url_for('static' , filename =  'css/form.css') }}">
+{%endblock%}
+    
+
+
+
+{% block body %} 
+    <div class="container">
+
+        <div class="signup-inner text-center">
+            <h3 class="title">Create an Event</h3>
+            
+            <form class="signup-inner--form" method="POST" enctype="multipart/form-data" action="/create_event">
+                <div class="row">
+
+                    <div class="col-12">
+                        <input type="text" class="single-field" placeholder="Place" name = 'place' required>
+                    </div>
+
+                    <div class="col-12">
+                        <input type="text" class="single-field" placeholder="title" name = 'title' required>
+                    </div>
+
+                    
+                    
+                   
+
+                    <!-- <div class="col-md-6">
+                        <input type="time" class="single-field" placeholder="Date" name = 'time' required>
+                    </div> -->
+
+                    
+                    <div class="col-12">
+                        <input type="text" class="single-field" placeholder="Details" name = 'details' required>
+                    </div>
+
+                    <div class="col-12">
+                        <input type="file" class="single-field" placeholder="photo" name = 'photo' >
+                    </div>
+
+                    <div class="col-12">
+                        <input type="submit" value = "Post" class = "submit-btn">
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+{% endblock %} 

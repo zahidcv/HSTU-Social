@@ -1,88 +1,24 @@
-<!doctype html>
-<html class="no-js" lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>HSTU Social</title>
-    <meta name="robots" content="noindex, follow" />
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Favicon -->
-
-
-    <!-- CSS
-	============================================ -->
-    <!-- google fonts -->
-    <script src="https://kit.fontawesome.com/859be4586c.js" crossorigin="anonymous"></script>
-
-
-    <!-- google fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/vendor/bootstrap.min.css')   }}">
-
-
-    <!-- Main Style CSS -->
+    {%block head%}
     <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/form.css') }}">
+    {%endblock%}
 
-</head>
-
-<body>
-    <header>
-        <nav class="navbar navbar-expand navbar-light sticky-top bg-light">
-            <a href="/" class="logo">
-                <img src="{{url_for('static', filename = 'hstu_logo_.png')}}" alt="">
-            </a>
-            <a class="navbar-brand" href="#">Welcome to HSTU Social</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-            </button>
-        
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                
-                
-            </ul>
-           
-            </div>
-        </nav>
-    </header>
-
-
+    {% block body %} 
     <div class="container my-5">
 
         <div class="signup-inner text-center">
             <!-- <h1>hello</h1> -->
-            <div >
-                <h3 class="title">Log In</h3>
-
-                <form class="signup-inner--form" action="\login_validate" method="POST">
-                    <div class="row align-items-center">
-
-                        <div class="col-12 col-sm">
-                            <input type="text" placeholder="Email" class="single-field" name='email'>
-                        </div>
-                        <div class="col-12 col-sm">
-                            <input type="password" placeholder="Password" class="single-field" name='password'>
-                        </div>
-                        <div class="col-12 col-sm-auto">
-                            <!-- <button class="login-btn">Login</button> -->
-                            <input class = 'btn btn-success' type="submit" value="Login" class="login-btn">
-                        </div>
-
-                    </div>
-                </form>
-            </div>
+            
         
 
 
-            <hr>
+        
 
-            <h3 class="title">Sign Up</h3>
+            <h3 class="title">Edit Profile</h3>
 
 
-            <form class="signup-inner--form" method="POST" action="/signup_validate">
+            <form class="signup-inner--form" enctype="multipart/form-data" method="POST" action="/edit_profile/{{sid}}">
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
                         <ul class=flashes>
@@ -97,21 +33,20 @@
                     {% endif %}
                 {% endwith %}
                 <div class="row">
-                    <div class="col-12">
-                        <input type="email" class="single-field" placeholder="Email" name = 'email' required>
-                    </div>
+                    
                     <div class="col-md-6">
                         <input type="text" class="single-field" placeholder="Name" name = 'name' required>
                     </div>
-                    <div class="col-md-6">
-                        <input type="number" class="single-field" placeholder="Student ID" name = 'sid' required>
-                    </div>
-                    <div class="col-md-6">
-                        <input type="password" class="single-field" placeholder="Password" name = 'password' required>
-                    </div>
+                   
+                    
                     <div class="col-md-6">
                         <input type="number" class="single-field" placeholder="Phone Number" name = 'phone_no' required>
                     </div>
+
+                    <div class="col-12">
+                        <input type="text" class="single-field" placeholder="Bio" name = 'bio' required>
+                    </div>
+
                     <div class="col-md-6">
                         <select class="nice-select" name="gender">
                             <option value="">Gender</option>
@@ -172,12 +107,17 @@
                         </select>
                     </div>
                     
-                    
+                    <div class="col-12">
+                        <input type="file" class="single-field" placeholder="Profile Picture" name = 'photo' >
+                    </div>
                     
                     <div class="col-12">
                         <input class = 'btn btn-success' type="submit" value = "Create Account" class = "submit-btn">
 
                     </div>
+
+                   
+
                 </div>
 
             </form>
@@ -186,12 +126,4 @@
 
         <!--  -->
     </div>
-
-
-
-
-
-
-</body>
-
-</html>
+    {% endblock %}

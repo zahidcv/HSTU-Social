@@ -100,6 +100,13 @@ def feed():
         )
 
     lost_n_founds = cursor.fetchall()
+
+    cursor.execute("""
+        SELECT * FROM HSTU_Social.event;
+        """
+        )
+
+    events = cursor.fetchall()
     cursor.close()
 
 
@@ -117,7 +124,7 @@ def feed():
 
 
    
-    return render_template('index.html', posts = posts, user = user_details, blood_donations = blood_donations, lost_n_founds =  lost_n_founds) 
+    return render_template('index.html', posts = posts, user = user_details, blood_donations = blood_donations, lost_n_founds =  lost_n_founds, events = events) 
 
 
 @app.route("/comments/<postid>/")
@@ -154,6 +161,7 @@ def signup_validate():
     sid = request.form.get('sid')
     phone_no = request.form.get('phone_no')
     blood_group = request.form.get('blood_group')
+    gender = request.form.get('gender')
 
 
     print(type(name), email, type(password), department, faculty, sid, phone_no)
@@ -185,18 +193,34 @@ def signup_validate():
 
     pw_hash = bcrypt.generate_password_hash(password).decode('utf-8')
 
+
+
+    # cursor = mysql.connection.cursor()
+    # cursor.execute("""
+    # INSERT INTO `HSTU_Social`.`Student` (`sid`, `email`, `password`, `name`, `pro_pic`, `department`, `faculty`, `phone_no`, `blood_group`, `gender`)
+    # VALUES 
+    # ( '{}',  '{}',  '{}',  '{}', NULL ,  '{}',  '{}',  '{}',  '{}', '{}');
+
+    # """.format(sid, email, pw_hash, name, department, faculty, phone_no, blood_group, gender ))
+
+
+    # mysql.connection.commit()
+
     try:
         cursor = mysql.connection.cursor()
         cursor.execute("""
-        INSERT INTO `HSTU_Social`.`Student` (`sid`, `email`, `password`, `name`, `pro_pic`, `department`, `faculty`, `phone_no`, `blood_group`)
+        INSERT INTO `HSTU_Social`.`Student` (`sid`, `email`, `password`, `name`, `pro_pic`, `department`, `faculty`, `phone_no`, `blood_group`, `gender`)
         VALUES 
-        ( '{}',  '{}',  '{}',  '{}', NULL ,  '{}',  '{}',  '{}',  '{}');
+        ( '{}',  '{}',  '{}',  '{}', NULL ,  '{}',  '{}',  '{}',  '{}', '{}');
 
-        """.format(sid, email, pw_hash, name, department, faculty, phone_no, blood_group ))
+        """.format(sid, email, pw_hash, name, department, faculty, phone_no, blood_group, gender ))
 
 
         mysql.connection.commit()
         cursor.close()
+
+        session["sid"] = sid
+        return redirect("/feed")
 
     except mysql.connection.IntegrityError as e:
         print("erooooooooooooor")
@@ -207,15 +231,84 @@ def signup_validate():
         # print("SQLSTATE", err.sqlstate)
         # print("Message", err.msg)
         # flash(err.msg, "error")
+        print(e.args[1])
         flash(e.args[1], "error")
 
+        
         return redirect("/signup")
 
     
-    # cursor.close()
-    # print(f"this is Hasshed password {pw_hash} ---> {type(pw_hash)}")
+    cursor.close()
+    print(f"this is Hasshed password {pw_hash} ---> {type(pw_hash)}")
     return "success"
 
+
+@app.route("/edit_profile/<sid>/", methods =  ['GET', 'POST'])
+def edit_profile(sid):
+
+
+    if 'sid' not in session:
+        return redirect("/signup")
+
+
+    if session['sid'] != int(sid):
+        return redirect("/feed")
+
+
+
+    if request.method == 'GET':
+        return render_template('edit_profile.html', sid = sid )
+
+
+    name = request.form.get('name')
+  
+    department = request.form.get('department')
+    faculty = request.form.get('faculty')
+
+    phone_no = request.form.get('phone_no')
+    blood_group = request.form.get('blood_group')
+    gender = request.form.get('gender')
+    bio = request.form.get('bio')
+
+    photo = request.files['photo']
+
+    photo_filename = ''
+
+    if len(photo.filename) != 0:
+        photo_filename = secure_filename(photo.filename)
+        print('photo found')
+        print(photo_filename)
+        photo.save(join(app.config['UPLOAD_FOLDER'], photo_filename))
+    
+
+    cursor = mysql.connection.cursor()
+    try:
+        cursor.execute(
+            """
+            UPDATE `HSTU_Social`.`Student` 
+            SET `department` = '{}', 
+            `faculty` = '{}', 
+            `name` = '{}', 
+            `phone_no` = '{}', 
+            `blood_group` = '{}', 
+            `gender` = '{}', 
+            `bio` = '{}',
+            `pro_pic` = NULLIF('{}', '')
+
+            WHERE (`sid` = '{}');
+            """.format(department, faculty, name, phone_no, blood_group, gender, bio, photo_filename, sid )
+        )
+        mysql.connection.commit()
+        cursor.close()
+
+        return redirect("/profile/")
+
+    except mysql.connection.IntegrityError as e:
+            print("erooooooooooooor")
+
+            print(e.args[1])
+            flash(e.args[1], "error")
+            return redirect("/edit_profile/"+sid)
 
 
 @app.route("/login_validate", methods =  ['POST'])
@@ -379,6 +472,63 @@ def create_blood_donation():
             return redirect("/create_blood_donation")
     
 
+
+@app.route("/create_event", methods = ['POST', 'GET'])
+def create_event():
+
+    if 'sid' not in session:
+        return redirect("/signup")
+
+
+    sid = session["sid"]
+    if request.method == 'GET':
+        
+        return render_template("event.html")
+    
+    place = request.form.get("place")
+    title = request.form.get("title")
+    # time = request.form.get("time")
+    photo = request.files['photo']
+
+    photo_filename = ''
+
+    if len(photo.filename) != 0:
+        photo_filename = secure_filename(photo.filename)
+        print('photo found')
+        print(photo_filename)
+        photo.save(join(app.config['UPLOAD_FOLDER'], photo_filename))
+
+
+
+    details = request.form.get("details")
+    # time = time.replace("T", " ")
+    # time+=":00"
+    # print(time)
+    # print(place, details)
+
+    cursor = mysql.connection.cursor()
+    try:
+        cursor.execute(
+            """
+            INSERT INTO `HSTU_Social`.`event` 
+            (`place`, `author`, `details`,`title`, `photo`) 
+            VALUES 
+            ('{}', '{}', '{}', '{}',NULLIF('{}', ''));
+
+            """.format(place, sid, details, title, photo_filename)
+        )
+        mysql.connection.commit()
+        cursor.close()
+
+        return redirect("/feed")
+
+    except mysql.connection.IntegrityError as e:
+            print("erooooooooooooor")
+
+            print(e.args[1])
+            flash(e.args[1], "error")
+            return redirect("/create_blood_donation")
+
 @app.route("/create_lost_n_found", methods = ['POST', 'GET'])
 def lost_n_found():
 
@@ -436,7 +586,7 @@ def lost_n_found():
 
             print(e.args[1])
             flash(e.args[1], "error")
-            return redirect("/create_blood_donation")
+            return redirect("/create_lost_n_found")
     
 @app.route("/like_post/<post_id>/", )
 def like_post(post_id):
@@ -580,7 +730,7 @@ def profile():
         """.format(sid)
     )
     followers = cursor.fetchall()
-    print(followers[0])
+
 
     cursor.execute(
         """
@@ -591,7 +741,7 @@ def profile():
         """.format(sid)
     )
     followings = cursor.fetchall()
-    print(followings[0])
+
 
 
     cursor.execute("""
