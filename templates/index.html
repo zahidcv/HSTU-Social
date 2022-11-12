@@ -89,7 +89,7 @@
                                             <div class="profile-thumb">
                                                 <a href="#">
                                                     <figure class="profile-thumb-small">
-                                                        <img src="media/images/profile/profile-small-33.jpg" alt="profile picture">
+                                                        <img src="{{ url_for('static' , filename = 'images/blood.webp') }}" alt="">
                                                     </figure>
                                                 </a>
                                             </div>
@@ -236,8 +236,7 @@
                             <div class="post-content">
                                 <p class="post-desc">
                                     {{post.content}}
-                                    {{post.photo1}}
-                                    {{post.photo2}}
+                                    
                                 </p>
                                 <!-- <div class="plyr__video-embed plyr-youtube">
                                     <iframe src="https://www.youtube.com/embed/WeA7edXsU40" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -330,25 +329,40 @@
                                         <span>{{like}}</span>
                                         <strong>201</strong>
                                     </button> -->
+                                    <button class="btn btn-outline-secondary" onClick="popup_comments(this.id)" id="{{post.id}}">Comments</button>
                                     
                                     <ul class="comment-share-meta">
                                         <li>
 
                                             <button class="post-like" onClick="likefunc(this.id)" id="{{post.id}}"> 
-                                                <i class="fa-regular fa-thumbs-up icon-4x"></i>
+                                                <i class="fa-solid fa-thumbs-up"></i>
                                                 <!-- <i class="fa-solid fa-thumbs-up"></i> -->
+                                                <!-- <button class="btn btn-outline-info" id = "{{post.id}}like_number">{{post.like}}</button> -->
                                                 <span id = "{{post.id}}like_number">{{post.like}}</span>
                                             </button>
                                         </li>
 
                                         <li>
                                             <button class="post-dislike" onClick="dislikefunc(this.id)" id="{{post.id}}">
-                                                <i class="fa-regular fa-thumbs-down icon-3x"></i>
+                                                <i class="fa-solid fa-thumbs-down"></i>
                                                 <span id = "{{post.id}}dislike_number">{{post.dislike}}</span>
                                             </button>
                                         </li>
                                     </ul>
                                 
+                                </div>
+
+                                <div class = '' id = '{{post.id}}-comments' hidden>
+                                    <hr>
+                                    <div class="comment-card">
+                                        <h6 class = 'comment-name'>Name</h6>
+
+                                        <p class="mx-3">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Eius nulla dolore eligendi unde ipsa obcaecati veritatis dolor. Blanditiis, odit. Fuga consectetur earum sequi nulla neque odit inventore, dolores laborum deserunt?</p>
+                                    </div>
+                                
+                                    
+                                       
+
                                 </div>
                             </div>
                             <!--! post content ENDS -->
@@ -448,7 +462,7 @@
                                             <div class="profile-thumb">
                                                 <a href="#">
                                                     <figure class="profile-thumb-small">
-                                                        <img src="media/images/profile/profile-small-33.jpg" alt="profile picture">
+                                                        <img src="{{ url_for('static' , filename = 'images/lnf.png') }}" alt="">
                                                     </figure>
                                                 </a>
                                             </div>
@@ -536,6 +550,9 @@
         </div>
 
     </main>
+
+
+        
     {%endblock%}
 
 

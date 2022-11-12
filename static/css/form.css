@@ -1,0 +1,104 @@
+
+  .container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  /*   background: green; */
+  }
+  
+  body,
+  html {
+    height: 100%;
+  }
+  
+  
+  .signup-inner {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+  
+    
+    max-width: 572px;
+    margin: auto;
+    -webkit-box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.25);
+            box-shadow: 0px 3px 20px 0px rgba(0, 0, 0, 0.25);
+  }
+  
+  .signup-inner .title {
+    color: #fff;
+    font-size: 18px;
+    background-color: #dc4734;
+    padding: 23px 0;
+  }
+ 
+  .signup-inner--form {
+    padding: 42px 100px 50px;
+    background-color: #fff;
+    position: relative;
+  }
+
+  .signup-inner--form .single-field {
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    border-bottom: 1px solid #999;
+    padding: 5px 10px;
+    margin-bottom: 28px;
+  }
+ 
+  .signup-inner--form:before {
+    top: 50%;
+    left: 50%;
+    content: '';
+    position: absolute;
+    height: 170px;
+    width: 174px;
+    background-image: url("../images/icons/login.png");
+    background-repeat: no-repeat;
+    -webkit-transform: translate(-50%, -80%);
+        -ms-transform: translate(-50%, -80%);
+            transform: translate(-50%, -80%);
+  }
+     
+  @media only screen and (min-width: 992px) and (max-width: 1199.98px), only screen and (min-width: 768px) and (max-width: 991.98px), only screen and (max-width: 767.98px) {
+    .signup-inner--form {
+      padding: 42px 50px 50px;
+    }
+  }
+   
+  @media only screen and (max-width: 479.98px) {
+    .signup-inner--form {
+      padding: 42px 30px 50px;
+    }
+  }
+
+
+
+  .signup-inner--form .nice-select {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #999;
+    border-radius: 0;
+    font-size: 13px;
+    padding: 5px 10px;
+    height: 34px;
+    line-height: 30px;
+    margin-bottom: 27px;
+    background-color: transparent;
+  }
+  
+  .signup-inner--form .nice-select span {
+    color: #999;
+  }
+  
+  .signup-inner--form .nice-select:after {
+    height: 6px;
+    width: 6px;
+    border-bottom: 1px solid #999;
+    border-right: 1px solid #999;
+  }
+  
+  .signup-inner--form .nice-select .list {
+    width: 100%;
+  }

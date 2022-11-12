@@ -1,3 +1,13 @@
+.comment-name{
+  color: rgb(102, 102, 124);
+}
+.comment-card{
+  border: 1px solid #cccccc;
+  border-radius: 3px;
+  padding: 10px;
+  margin: 10px;
+  background-color: #e3f0f2;
+}
 .follower-name{
   display: flex;
   align-items: center;

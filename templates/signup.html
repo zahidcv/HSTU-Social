@@ -1,0 +1,249 @@
+
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>HSTU Social</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+
+    <!-- CSS
+	============================================ -->
+    <!-- google fonts -->
+    <script src="https://kit.fontawesome.com/859be4586c.js" crossorigin="anonymous"></script>
+
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static' , filename =  'css/style.min.css')   }}" />
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href = "{{ url_for('static' , filename =  'css/vendor/bootstrap.min.css')   }}">
+
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/vendor/bicon.min.css')  }}">
+    <!-- Flat Icon CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/vendor/flaticon.css')  }}">
+    <!-- audio & video player CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/plyr.css')   }}">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/slick.min.css')   }}">
+    <!-- nice-select CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/nice-select.css')  }}">
+    <!-- perfect scrollbar css -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/perfect-scrollbar.css' )  }}">
+    <!-- light gallery css -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/lightgallery.min.css' ) }}">
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/style.css') }}">
+
+</head>
+
+<body class="bg-transparent">
+<!-- <img src="/media/images/sports/adda-timeline.jpg" alt=""> -->
+    <main>
+        <div class="main-wrapper pb-0 mb-0">
+            <div class="timeline-wrapper">
+                <div class="timeline-header">
+                    <div class="container-fluid p-0">
+
+                         <!--! ROW 1 -->
+                        <div class="row no-gutters align-items-center">
+
+                            <!--! COL 1 -->
+                            <div class="col-lg-6">
+                                <div class="timeline-logo-area d-flex align-items-center">
+                                    <div class="timeline-logo">
+                                        <a href="index.html">
+                                            <img src="/media/images/logo/logo.png" alt="timeline logo">
+                                        </a>
+                                    </div>
+                                    <div class="timeline-tagline">
+                                        <h6 class="tagline">It’s helps you to connect and share with the people in your life</h6>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--! COL 2 -->
+                            <div class="col-lg-6">
+                                <div class="login-area">
+                                    <form action="\login_validate" method = "POST">
+                                    <div class="row align-items-center">
+                                        
+                                            <div class="col-12 col-sm">
+                                                <input type="text" placeholder="Email" class="single-field" name = 'email'>
+                                            </div>
+                                            <div class="col-12 col-sm">
+                                                <input type="password" placeholder="Password" class="single-field" name = 'password'>
+                                            </div>
+                                            <div class="col-12 col-sm-auto">
+                                                <!-- <button class="login-btn">Login</button> -->
+                                                <input type="submit" value="Login" class = "login-btn">
+                                            </div>
+                                        
+                                    </div>
+                                </form>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="timeline-page-wrapper">
+                    <div class="container-fluid p-0">
+
+
+                        <!--! ROW 1 -->
+                        <div class="row no-gutters">
+
+                            <!--! COL 1 -->
+                            <div class="col-lg-6 order-2 order-lg-1">
+                                <div class="timeline-bg-content bg-img" data-bg="/media/images/sports/adda-timeline.jpg">
+                                    <h3 class="timeline-bg-title">Lets see whats happening to you and your world. Welcome in Adda.</h3>
+                                </div>
+                            </div>
+
+                            <!--! COL 2 -->
+                            <div class="col-lg-6 order-1 order-lg-2 d-flex align-items-center justify-content-center">
+                                <div class="signup-form-wrapper">
+                                    {% with messages = get_flashed_messages(with_categories=true) %}
+                                                {% if messages %}
+                                                    <ul class=flashes>
+                                                    {% for category, message in messages %}
+                                                    
+                                                    <div class="alert alert-danger" role="alert">
+                                                        {{ message }}
+                                                    </div>
+
+                                                    {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                    {% endwith %}
+                                    <h1 class="create-acc text-center">Create An Account</h1>
+                                    <div class="signup-inner text-center">
+                                        <h3 class="title">Wellcome to HSTU Social</h3>
+                                        
+                                        <form class="signup-inner--form" method="POST" action="/signup_validate">
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <input type="email" class="single-field" placeholder="Email" name = 'email' required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="text" class="single-field" placeholder="Name" name = 'name' required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <input type="number" class="single-field" placeholder="Student ID" name = 'sid' required>
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="password" class="single-field" placeholder="Password" name = 'password' required>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <select class="nice-select" name="department" required>
+                                                        <option value="">Department</option>
+                                                        <option value="CSE">CSE</option>
+                                                        <option value="EEE">EEE</option>
+                                                        <option value="ECE">ECE</option>
+                                                        <option value="Fisheries">Fisheries</option>
+                                                        <option value="FIB">FIB</option>
+                                                        <option value="AIS">AIS</option>
+                                                        <option value="Management">Management</option>
+                                                        <option value="Physics">Physics</option>
+                                                        <option value="Chemistry">Chemistry</option>
+                                                        <option value="Math">Math</option>
+                                                        <option value="English">English</option>
+                                                        <option value="Sociology">Sociology</option>
+                                                        <option value="Development Studies">Development Studies</option>
+                                                        <option value="Agriculture">Agriculture</option>
+                                                        <option value="DVM">DVM</option>
+                                                        <option value="Architecture">Architecture</option>
+                                                        <option value="Civil Engineering">Civil Engineering</option>
+                                                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                                        <option value="FPE">FPE</option>
+                                                        <option value="AIE">AIE</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <select class="nice-select" name="faculty" required>
+                                                        <option value="">Faculty</option>
+                                                        <option value="CSE">CSE</option>
+                                                        <option value="Fisheries">Fisheries</option>
+                                                        <option value="Agriculture">Agriculture</option>
+                                                        <option value="DVM">DVM</option>
+                                                        <option value="Business Studies">Business Studies</option>
+                                                        <option value="Science">Science</option>
+                                                        <option value="Engineering">Engineering</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-12">
+                                                    <input type="number" class="single-field" placeholder="Phone Number" name = 'phone_no' required>
+                                                </div>
+                                                <div class="col-12">
+                                                    <select class="nice-select" name="blood_group">
+                                                        <option value="">Blood Group</option>
+                                                        <option value="A+">A+</option>
+                                                        <option value="A-">A-</option>
+                                                        <option value="B+">B+</option>
+                                                        <option value="B-">B-</option>
+                                                        <option value="O+">O+</option>
+                                                        <option value="O-">O-</option>
+                                                        <option value="AB+">AB+</option>
+                                                        <option value="AB-">AB-</option>
+                                                    </select>
+                                                </div>
+                                                
+                                                <div class="col-12">
+                                                    <input type="submit" value = "Create Account" class = "submit-btn">
+
+                                                </div>
+                                            </div>
+                                            <h6 class="terms-condition">I have read & accepted the <a href="#">terms of use</a></h6>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- JS
+============================================ -->
+
+     <!-- Modernizer JS -->
+     <script type = 'text/javascript' src="{{ url_for('static' , filename =  'js/vendor/modernizr-3.6.0.min.js' )  }}"></script>
+     <!-- jQuery JS -->
+     <script type = 'text/javascript' src="{{ url_for('static' , filename =  'js/vendor/jquery-3.3.1.min.js' )  }}"></script>
+     <!-- Popper JS -->
+     <script type = 'text/javascript'  src="{{ url_for('static' , filename =  'js/vendor/popper.min.js' )  }}"></script>
+     <!-- Bootstrap JS -->
+     <script  type = 'text/javascript' src="{{ url_for('static' , filename =  'js/vendor/bootstrap.min.js' )  }}"></script>
+     <!-- Slick Slider JS -->
+     <script  type = 'text/javascript' src="{{ url_for('static' , filename =  'js/plugins/slick.min.js' )  }}"></script>
+     <!-- nice select JS -->
+     <script  type = 'text/javascript' src="{{ url_for('static' , filename =  'js/plugins/nice-select.min.js' )  }}"></script>
+     <!-- audio video player JS -->
+     <script type = 'text/javascript'  src="{{ url_for('static' , filename =  'js/plugins/plyr.min.js' )  }}"></script>
+     <!-- perfect scrollbar js -->
+     <!-- <script  type = 'text/javascript' src="{{ url_for('static' , filename =  'js/plugins/perfect-scrollbar.min.js' )  }}"></script> -->
+     <!-- light gallery js -->
+     <script  type = 'text/javascript' src="{{ url_for('static' , filename =  'js/plugins/lightgallery-all.min.js' )  }}"></script>
+     <!-- image loaded js -->
+     <script  type = 'text/javascript' src="{{ url_for('static' , filename =  'js/plugins/imagesloaded.pkgd.min.js' )  }}"></script>
+     <!-- isotope filter js -->
+     <script  type = 'text/javascript' src="{{ url_for('static' , filename =  'js/plugins/isotope.pkgd.min.js' )  }}"></script>
+     <!-- Main JS -->
+     <script  type = 'text/javascript' src="{{ url_for('static' , filename =  'js/main.js' )  }}"></script>
+
+</body>
+
+</html>

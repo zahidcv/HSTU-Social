@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{%block head%}
+<link rel="stylesheet" href="{{ url_for('static' , filename =  'css/form.css') }}">
+{%endblock%}
+    
+
+
+
+{% block body %} 
+    <div class="container">
+
+        <div class="signup-inner text-center">
+            <h3 class="title">Create a Lost and Found Post</h3>
+            
+            <form class="signup-inner--form" method="POST" action="/create_lost_n_found">
+                <div class="row">
+
+                    <div class="col-12">
+                        <input type="text" class="single-field" placeholder="Place" name = 'place' required>
+                    </div>
+
+                    <div class="col-12">
+                        <input type="text" class="single-field" placeholder="Item" name = 'item' required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <select class="nice-select" name="group" required>
+                            <option value="">Blood Group</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="O+">O+</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-12">
+                        <input type="datetime-local" class="single-field" placeholder="Date" name = 'time' required>
+                    </div>
+
+                    <!-- <div class="col-md-6">
+                        <input type="time" class="single-field" placeholder="Date" name = 'time' required>
+                    </div> -->
+
+                    
+                    <div class="col-12">
+                        <input type="text" class="single-field" placeholder="Details" name = 'details' required>
+                    </div>
+                    <div class="col-12">
+                        <input type="submit" value = "Post" class = "submit-btn">
+
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+{% endblock %} 

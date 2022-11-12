@@ -22,23 +22,11 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href = "{{ url_for('static' , filename =  'css/vendor/bootstrap.min.css')   }}">
 
-    <!-- Icon Font CSS -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/vendor/bicon.min.css')  }}"> -->
-    <!-- Flat Icon CSS -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/vendor/flaticon.css')  }}"> -->
-    <!-- audio & video player CSS -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/plyr.css')   }}"> -->
-    <!-- Slick CSS -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/slick.min.css')   }}"> -->
-    <!-- nice-select CSS -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/nice-select.css')  }}"> -->
-    <!-- perfect scrollbar css -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/perfect-scrollbar.css' )  }}"> -->
-    <!-- light gallery css -->
-    <!-- <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/lightgallery.min.css' ) }}"> -->
+
     <!-- Main Style CSS -->
     <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/style.css') }}">
-
+    {%block head%}
+    {%endblock%}
 </head>
 
 <body>
@@ -60,9 +48,9 @@
                 <!-- <li class="nav-item active">
                 <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                 </li> -->
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                 <a class="nav-link" href="#">Messages</a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                     <a class="nav-link" href="/stat">Statistics</a>
                 </li>
@@ -83,7 +71,7 @@
                 
             </ul>
             <form class="form-inline my-2 my-lg-0 ">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search by ID or" aria-label="Search">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search by ID or Email" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
             </div>

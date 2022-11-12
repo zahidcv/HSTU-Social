@@ -65,7 +65,8 @@ def feed():
     cursor.execute("""
     Select post.* , Student.*
     FROM post INNER JOIN Student 
-    ON post.author = Student.sid;
+    ON post.author = Student.sid
+    ORDER BY post.time DESC;
     """)
 
     posts = cursor.fetchall()
@@ -103,8 +104,7 @@ def feed():
 
 
     print("printing the query.............")
-    print(posts[1]['photo1'])
-    print(posts[1]['photo2'])
+    
 
 
     # for bd in blood_donations:
@@ -119,10 +119,29 @@ def feed():
    
     return render_template('index.html', posts = posts, user = user_details, blood_donations = blood_donations, lost_n_founds =  lost_n_founds) 
 
+
+@app.route("/comments/<postid>/")
+def comments(postid):
+
+    # INSERT INTO `HSTU_Social`.`comment` (`content`, `author`, `original_post`) VALUES ('wow', '1802062', '20');
+    print(postid)
+    cursor = mysql.connection.cursor()
+    cursor.execute("""
+    Select `HSTU_Social`.`comment`.* , `HSTU_Social`.`Student`.sid, `name`
+    FROM `comment` INNER JOIN `Student` 
+    ON comment.author = Student.sid
+    WHERE comment.original_post = '{}'
+    ORDER BY comment.time DESC;
+    """.format(postid)
+    )
+
+    comments = cursor.fetchall()
+    print(comments)
+    return jsonify(comments)
 @app.route("/signup")
 def signup():
     # flash("demo flash", "error")
-    return render_template('signup.html')
+    return render_template('signup_demo.html')
 
 
 @app.route("/signup_validate", methods =  ['POST'])
@@ -321,7 +340,8 @@ def create_blood_donation():
     sid = session["sid"]
     if request.method == 'GET':
         
-        return render_template("create_blood_donation.html")
+        return render_template("cbd.html")
+        # return render_template("create_blood_donation.html")
     
     place = request.form.get("place")
     time = request.form.get("time")
@@ -372,28 +392,39 @@ def lost_n_found():
         return render_template("lost_n_found.html")
     
     place = request.form.get("place")
-    time = request.form.get("time")
+    # time = request.form.get("time")
     item = request.form.get("item")
-    print(type(time))
-    print(time)
+    photo = request.files['photo']
+
+
+    photo_filename = ''
+
+
+    
+    if len(photo.filename) != 0:
+        photo_filename = secure_filename(photo.filename)
+        print('photo found')
+        print(photo_filename)
+        photo.save(join(app.config['UPLOAD_FOLDER'], photo_filename))
+
 
 
     details = request.form.get("details")
-    time = time.replace("T", " ")
+    # time = time.replace("T", " ")
     # time+=":00"
-    print(time)
-    print(place, time, details)
+    # print(time)
+    # print(place, details)
 
     cursor = mysql.connection.cursor()
     try:
         cursor.execute(
             """
             INSERT INTO `HSTU_Social`.`lost_n_found` 
-            (`place`, `time`, `author`, `details`, `item`) 
+            (`place`, `author`, `details`, `item`, `photo`) 
             VALUES 
-            ('{}', '{}', '{}', '{}', '{}');
+            ('{}', '{}', '{}', '{}', NULLIF('{}', ''));
 
-            """.format(place, time, sid, details, item)
+            """.format(place, sid, details, item, photo_filename)
         )
         mysql.connection.commit()
         cursor.close()
@@ -573,6 +604,10 @@ def profile():
     user_details = cursor.fetchall()[0]
   
 
+  
+
+
+    # !======================== Blood Donation ======================== #
     cursor.execute("""
         SELECT * 
         FROM HSTU_Social.blood_donation
@@ -581,6 +616,26 @@ def profile():
         )
 
     blood_donations = cursor.fetchall()
+
+    # !======================== Lost and Found ======================== #
+    cursor.execute("""
+        SELECT * 
+        FROM HSTU_Social.lost_n_found
+        WHERE author = '{}';
+        """.format(sid)
+        )
+
+    lost_n_founds= cursor.fetchall()
+
+    # !======================== Events ======================== #
+    cursor.execute("""
+        SELECT * 
+        FROM HSTU_Social.event
+        WHERE author = '{}';
+        """.format(sid)
+        )
+
+    events = cursor.fetchall()
 
     cursor.close()
 
@@ -593,6 +648,9 @@ def profile():
      posts = posts, 
      user = user_details, 
      blood_donations = blood_donations,
+
+     lost_n_founds = lost_n_founds,
+     events = events,
      followers = followers,
      followings = followings,
       ) 
@@ -649,7 +707,7 @@ def other_profile(sid):
         """.format(sid)
         )
 
-    lost_n= cursor.fetchall()
+    lost_n_founds= cursor.fetchall()
 
     # !======================== Events ======================== #
     cursor.execute("""
@@ -659,7 +717,7 @@ def other_profile(sid):
         """.format(sid)
         )
 
-    blood_donations = cursor.fetchall()
+    events = cursor.fetchall()
 
 
     # !======================== Follow Unfollow ======================== #
@@ -709,6 +767,8 @@ def other_profile(sid):
     posts = posts, 
     user = user_details, 
     blood_donations = blood_donations,
+    lost_n_founds = lost_n_founds,
+    events = events,
     followers = followers,
     followings = followings,
     )

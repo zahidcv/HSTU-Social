@@ -1,0 +1,189 @@
+<!doctype html>
+<html class="no-js" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>HSTU Social</title>
+    <meta name="robots" content="noindex, follow" />
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/favicon.ico">
+
+    <!-- CSS
+	============================================ -->
+    <!-- google fonts -->
+    <script src="https://kit.fontawesome.com/859be4586c.js" crossorigin="anonymous"></script>
+
+    <link type="text/css" rel="stylesheet" href="{{ url_for('static' , filename =  'css/style.min.css')   }}" />
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/vendor/bootstrap.min.css')   }}">
+
+    <!-- Icon Font CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/vendor/bicon.min.css')  }}">
+    <!-- Flat Icon CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/vendor/flaticon.css')  }}">
+    <!-- audio & video player CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/plyr.css')   }}">
+    <!-- Slick CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/slick.min.css')   }}">
+    <!-- nice-select CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/nice-select.css')  }}">
+    <!-- perfect scrollbar css -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/perfect-scrollbar.css' )  }}">
+    <!-- light gallery css -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/plugins/lightgallery.min.css' ) }}">
+    <!-- Main Style CSS -->
+    <link rel="stylesheet" href="{{ url_for('static' , filename =  'css/form.css') }}">
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand navbar-light sticky-top bg-light">
+            <a href="/" class="logo">
+                <img src="{{url_for('static', filename = 'hstu_logo_.png')}}" alt="">
+            </a>
+            <a class="navbar-brand" href="#">Welcome to HSTU Social</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                
+                
+            </ul>
+           
+            </div>
+        </nav>
+    </header>
+
+
+    <div class="container">
+
+        <div class="wrapper">
+            <div class="row">
+
+                    <!-- login -->
+                <div class="col">
+                    <div class="signup-inner text-center">
+                        <h3 class="title">Log In</h3>
+
+                        <form class="signup-inner--form" action="\login_validate" method="POST">
+                            <div class="row align-items-center">
+
+                                <div class="col-12 col-sm">
+                                    <input type="text" placeholder="Email" class="single-field" name='email'>
+                                </div>
+                                <div class="col-12 col-sm">
+                                    <input type="password" placeholder="Password" class="single-field" name='password'>
+                                </div>
+                                <div class="col-12 col-sm-auto">
+                                    <!-- <button class="login-btn">Login</button> -->
+                                    <input class = 'btn btn-success' type="submit" value="Login" class="login-btn">
+                                </div>
+
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+
+                <!-- signup -->
+                <div class="col">
+                    <div class="signup-inner text-center">
+                        <h3 class="title">Sign Up</h3>
+
+
+                        <form class="signup-inner--form" method="POST" action="/signup_validate">
+                            <div class="row">
+                                <div class="col-12">
+                                    <input type="email" class="single-field" placeholder="Email" name = 'email' required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" class="single-field" placeholder="Name" name = 'name' required>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="number" class="single-field" placeholder="Student ID" name = 'sid' required>
+                                </div>
+                                <div class="col-12">
+                                    <input type="password" class="single-field" placeholder="Password" name = 'password' required>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="nice-select" name="department" required>
+                                        <option value="">Department</option>
+                                        <option value="CSE">CSE</option>
+                                        <option value="EEE">EEE</option>
+                                        <option value="ECE">ECE</option>
+                                        <option value="Fisheries">Fisheries</option>
+                                        <option value="FIB">FIB</option>
+                                        <option value="AIS">AIS</option>
+                                        <option value="Management">Management</option>
+                                        <option value="Physics">Physics</option>
+                                        <option value="Chemistry">Chemistry</option>
+                                        <option value="Math">Math</option>
+                                        <option value="English">English</option>
+                                        <option value="Sociology">Sociology</option>
+                                        <option value="Development Studies">Development Studies</option>
+                                        <option value="Agriculture">Agriculture</option>
+                                        <option value="DVM">DVM</option>
+                                        <option value="Architecture">Architecture</option>
+                                        <option value="Civil Engineering">Civil Engineering</option>
+                                        <option value="Mechanical Engineering">Mechanical Engineering</option>
+                                        <option value="FPE">FPE</option>
+                                        <option value="AIE">AIE</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <select class="nice-select" name="faculty" required>
+                                        <option value="">Faculty</option>
+                                        <option value="CSE">CSE</option>
+                                        <option value="Fisheries">Fisheries</option>
+                                        <option value="Agriculture">Agriculture</option>
+                                        <option value="DVM">DVM</option>
+                                        <option value="Business Studies">Business Studies</option>
+                                        <option value="Science">Science</option>
+                                        <option value="Engineering">Engineering</option>
+                                    </select>
+                                </div>
+                                <div class="col-12">
+                                    <input type="number" class="single-field" placeholder="Phone Number" name = 'phone_no' required>
+                                </div>
+                                <div class="col-12">
+                                    <select class="nice-select" name="blood_group">
+                                        <option value="">Blood Group</option>
+                                        <option value="A+">A+</option>
+                                        <option value="A-">A-</option>
+                                        <option value="B+">B+</option>
+                                        <option value="B-">B-</option>
+                                        <option value="O+">O+</option>
+                                        <option value="O-">O-</option>
+                                        <option value="AB+">AB+</option>
+                                        <option value="AB-">AB-</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="col-12">
+                                    <input class = 'btn btn-success' type="submit" value = "Create Account" class = "submit-btn">
+
+                                </div>
+                            </div>
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+          
+    </div>
+
+
+</body>
+
+</html>
